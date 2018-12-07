@@ -32,14 +32,13 @@ vector_atributos = []
 matriz_atributos = np.zeros(1)
 
 def crearVector():
-  #temp = len(lista_inner_feats) + len(lista_outer_feats) + len(lista_environ_feats)
+  
   global vector_atributos, matriz_atributos
-  #matriz_atributos = np.zeros(temp)
   iniciado = False
   
   for house in contenedor:
     datos = house.get_feats() # Consigue los datos de cada casa en cada iteracion
-    vector_atributos = []
+    vector_atributos = [] # Reinicia el vector de atributos
     
     for i in lista_inner_feats:
       if (i in datos['inner_feats']):
@@ -59,15 +58,14 @@ def crearVector():
       else:
         vector_atributos.append("0")
     
-    vector_atributos.append(datos['price'])
-    #vector_atributos.append(datos['location'])
+    #vector_atributos.append(datos['price'])
+    vector_atributos.append(datos['location'])
     vector_atributos.append(datos['size'])
     vector_atributos.append(datos['num_bedrooms'])
     vector_atributos.append(datos['num_bathrooms'])
     
-    tupla_temp = tuple(vector_atributos)
-    print("Datos de Tupla:", tupla_temp)
-    #print("Vector como tupla:", tuple(vector_atributos))
+    tupla_temp = tuple(vector_atributos) # Convierte la lista a una tupla
+    #print("Datos de Tupla:", tupla_temp)
     
     if iniciado == False:
       matriz_atributos = np.array(tupla_temp)
@@ -75,13 +73,6 @@ def crearVector():
     else:
       matriz_atributos = np.vstack([matriz_atributos, tupla_temp])
     
-    #print("--------------------------------------")
-    #print("Tipo Vector", type(tuple(vector_atributos)))
-    #print(matriz_atributos)
-    #print(type(matriz_atributos))
-    #<class 'numpy.ndarray'>
-    #print("Fila:", matriz_atributos[0])
-
 """
 Este método se encarga de crear una 3 listas de caracteristicas.
 global: En los metodos python cree que las variables son locales, por
@@ -161,13 +152,12 @@ print("------------------")
 
 crearVector()
 print("------------------")
-#print("Tamaño del vector Final: ", len(vector_atributos))
-#print(vector_atributos)
 print("Matriz de Atributos Final:")
-print(matriz_atributos)
+#print(matriz_atributos)
 
-print(matriz_atributos[0])
-print(matriz_atributos[1])
-print(matriz_atributos[2])
-print(matriz_atributos[3])
-print(matriz_atributos[4])
+# Impresion de las Filas:
+print("Fila 01:", matriz_atributos[0])
+print("Fila 02:", matriz_atributos[1])
+print("Fila 03:", matriz_atributos[2])
+print("Fila 04:", matriz_atributos[3])
+print("Fila 05:", matriz_atributos[4])
