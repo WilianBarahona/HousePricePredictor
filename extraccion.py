@@ -26,10 +26,36 @@ lista_inner_feats = []
 lista_outer_feats = []
 lista_environ_feats = []
 
+# Vector que tendra los atributos en forma binaria
+vecAtributos = []
+
 def crearVector():
-  vecAtributos = []
-  for atr in range(len()):
-    vecAtributos.append("0")
+  
+  global vecAtributos
+
+  for house in contenedor:
+    datos = house.get_feats() # Consigue los datos de cada casa en cada iteracion
+
+    vecAtributos.append("||||||") # Delimitador para indicar cuando termina un vector
+    
+    for i in lista_inner_feats:
+      if (i in datos['inner_feats']):
+        vecAtributos.append("1")
+      else:
+        vecAtributos.append("0")
+"""
+    for j in lista_outer_feats:
+      if (j in datos['outer_feats']):
+        vecAtributos.append("1")
+      else:
+        vecAtributos.append("0")
+
+    for k in lista_environ_feats:
+      if (k in datos['environ_feats']):
+        vecAtributos.append("1")
+      else:
+        vecAtributos.append("0")"
+"""
 
 """
 Este método se encarga de crear una 3 listas de caracteristicas.
@@ -63,8 +89,11 @@ def crearLista(inner_feats, in_tam, outer_feats, out_tam, environ_feats, env_tam
     if(k not in lista_environ_feats):
       lista_environ_feats.append(k)
 
+"""
+Inicio del programa que obtiene los datos que devulve la funcion get_feats()
+"""
 for house in contenedor:
-  datos = house.get_feats() # Consigue los datos de cada casa
+  datos = house.get_feats() # Consigue los datos de cada casa en cada iteracion
 
   # Se desempaqueta el objeto de casas en diferentes listas:
   price.append(datos['price'])
@@ -78,29 +107,33 @@ for house in contenedor:
   environ_feats = datos['environ_feats']
 
   # Prueba de datos:
-  #print("Datos:", datos)
-  #print("Precio:", price)
-  #print("Lugar:", location)
-  #print("Tamaño:", size)
-  #print("Numero Habitaciones:", num_bedrooms)
-  #print("Numero de baños:", num_bathrooms)
-  #print("características Interiores:", inner_feats, len(inner_feats))
-  #print("características Exteriores:", outer_feats, len(outer_feats))
-  #print("características Entorno:", environ_feats, len(environ_feats))
+    #print("Datos:", datos)
+    #print("Precio:", price)
+    #print("Lugar:", location)
+    #print("Tamaño:", size)
+    #print("Numero Habitaciones:", num_bedrooms)
+    #print("Numero de baños:", num_bathrooms)
+    #print("características Interiores:", inner_feats, len(inner_feats))
+    #print("características Exteriores:", outer_feats, len(outer_feats))
+    #print("características Entorno:", environ_feats, len(environ_feats))
   
   # Se crea una lista con una casa a la vez:
   crearLista(inner_feats, len(inner_feats), outer_feats, len(outer_feats), environ_feats, len(environ_feats))
 
 print("------------------")
-print("Precio:", price)
-print("Lugar:", location)
-print("Tamaño:", size)
-print("Numero Habitaciones:", num_bedrooms)
-print("Numero de baños:", num_bathrooms)
-print("lista_inner_feats:", lista_inner_feats, len(lista_inner_feats))
-print("características Exteriores:", lista_outer_feats, len(lista_outer_feats))
-print("características Entorno:", lista_environ_feats, len(lista_environ_feats))
+print("Precios:", price) # Vector con los Precios de las n casas
+print("Lugares:", location) # Vector con los Lugares de las n casas 
+print("Tamaños:", size) # Vector con los Tamaños de las n casas
+print("Numero Habitaciones:", num_bedrooms) # Vector con los Habitaciones de las n casas
+print("Numero de baños:", num_bathrooms) # Vector con los baños de las n casas
+print("------------------")
+print("Lista de Inner feats totales:", lista_inner_feats, ", Tamaño:", len(lista_inner_feats))
+#print("Lista de Outer feats totales:", lista_outer_feats, ", Tamaño:", len(lista_outer_feats))
+#print("Lista de Inv feats totales:", lista_environ_feats, ", Tamaño:", len(lista_environ_feats))
 
+crearVector()
+print("Tamaño del vector: ", len(vecAtributos))
+print(vecAtributos)
 
 
 
