@@ -1,3 +1,4 @@
+import numpy as np
 from houses_container import HousesContainer
 
 # Instancia
@@ -26,36 +27,54 @@ lista_inner_feats = []
 lista_outer_feats = []
 lista_environ_feats = []
 
-# Vector que tendra los atributos en forma binaria
-vecAtributos = []
+# Vector y matriz que tendran los atributos en forma binaria
+vector_atributos = []
+matriz_atributos = []
 
 def crearVector():
+  temp = len(lista_inner_feats) + len(lista_outer_feats) + len(lista_environ_feats)
+  #print("Numero:", temp)
+  global vector_atributos, matriz_atributos
+  matriz_atributos = np.zeros(temp)
+  iniciado = False
   
-  global vecAtributos
-
   for house in contenedor:
     datos = house.get_feats() # Consigue los datos de cada casa en cada iteracion
-
-    vecAtributos.append("||||||") # Delimitador para indicar cuando termina un vector
     
     for i in lista_inner_feats:
       if (i in datos['inner_feats']):
-        vecAtributos.append("1")
+        vector_atributos.append("1")
       else:
-        vecAtributos.append("0")
-"""
+        vector_atributos.append("0")
+
     for j in lista_outer_feats:
       if (j in datos['outer_feats']):
-        vecAtributos.append("1")
+        vector_atributos.append("1")
       else:
-        vecAtributos.append("0")
+        vector_atributos.append("0")
 
     for k in lista_environ_feats:
       if (k in datos['environ_feats']):
-        vecAtributos.append("1")
+        vector_atributos.append("1")
       else:
-        vecAtributos.append("0")"
-"""
+        vector_atributos.append("0")
+    
+    vector_atributos.append(datos['price'])
+    #vector_atributos.append(datos['location'])
+    vector_atributos.append(datos['size'])
+    vector_atributos.append(datos['num_bedrooms'])
+    vector_atributos.append(datos['num_bathrooms'])
+    
+    if iniciado == False:
+      matriz_atributos = np.array(vector_atributos)
+    else:
+      matriz_atributos = np.vstack([matriz_atributos, vector_atributos])
+    
+    print("--------------------------------------")
+    #print(matriz_atributos)
+    #print(type(matriz_atributos))
+    #<class 'numpy.ndarray'>
+    #print("Fila:", matriz_atributos[0])
 
 """
 Este método se encarga de crear una 3 listas de caracteristicas.
@@ -120,20 +139,28 @@ for house in contenedor:
   # Se crea una lista con una casa a la vez:
   crearLista(inner_feats, len(inner_feats), outer_feats, len(outer_feats), environ_feats, len(environ_feats))
 
-print("------------------")
+print("----- Lista de Datos Generales -----")
 print("Precios:", price) # Vector con los Precios de las n casas
 print("Lugares:", location) # Vector con los Lugares de las n casas 
 print("Tamaños:", size) # Vector con los Tamaños de las n casas
 print("Numero Habitaciones:", num_bedrooms) # Vector con los Habitaciones de las n casas
 print("Numero de baños:", num_bathrooms) # Vector con los baños de las n casas
 print("------------------")
-print("Lista de Inner feats totales:", lista_inner_feats, ", Tamaño:", len(lista_inner_feats))
-#print("Lista de Outer feats totales:", lista_outer_feats, ", Tamaño:", len(lista_outer_feats))
-#print("Lista de Inv feats totales:", lista_environ_feats, ", Tamaño:", len(lista_environ_feats))
+print("Lista de Inner feats totales:", lista_inner_feats, ", *Tamaño:", len(lista_inner_feats))
+print("------------------")
+print("Lista de Outer feats totales:", lista_outer_feats, ", *Tamaño:", len(lista_outer_feats))
+print("------------------")
+print("Lista de Inv feats totales:", lista_environ_feats, ", *Tamaño:", len(lista_environ_feats))
 
 crearVector()
-print("Tamaño del vector: ", len(vecAtributos))
-print(vecAtributos)
+print("------------------")
+#print("Tamaño del vector Final: ", len(vector_atributos))
+#print(vector_atributos)
+print("Matriz de Atributos Final:")
+print(matriz_atributos)
 
-
-
+#print(matriz_atributos[0])
+#print(matriz_atributos[1])
+#print(matriz_atributos[2])
+#print(matriz_atributos[3])
+#print(matriz_atributos[4])
