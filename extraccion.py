@@ -29,17 +29,17 @@ lista_environ_feats = []
 
 # Vector y matriz que tendran los atributos en forma binaria
 vector_atributos = []
-matriz_atributos = []
+matriz_atributos = np.zeros(1)
 
 def crearVector():
-  temp = len(lista_inner_feats) + len(lista_outer_feats) + len(lista_environ_feats)
-  #print("Numero:", temp)
+  #temp = len(lista_inner_feats) + len(lista_outer_feats) + len(lista_environ_feats)
   global vector_atributos, matriz_atributos
-  matriz_atributos = np.zeros(temp)
+  #matriz_atributos = np.zeros(temp)
   iniciado = False
   
   for house in contenedor:
     datos = house.get_feats() # Consigue los datos de cada casa en cada iteracion
+    vector_atributos = []
     
     for i in lista_inner_feats:
       if (i in datos['inner_feats']):
@@ -65,12 +65,18 @@ def crearVector():
     vector_atributos.append(datos['num_bedrooms'])
     vector_atributos.append(datos['num_bathrooms'])
     
-    if iniciado == False:
-      matriz_atributos = np.array(vector_atributos)
-    else:
-      matriz_atributos = np.vstack([matriz_atributos, vector_atributos])
+    tupla_temp = tuple(vector_atributos)
+    print("Datos de Tupla:", tupla_temp)
+    #print("Vector como tupla:", tuple(vector_atributos))
     
-    print("--------------------------------------")
+    if iniciado == False:
+      matriz_atributos = np.array(tupla_temp)
+      iniciado = True
+    else:
+      matriz_atributos = np.vstack([matriz_atributos, tupla_temp])
+    
+    #print("--------------------------------------")
+    #print("Tipo Vector", type(tuple(vector_atributos)))
     #print(matriz_atributos)
     #print(type(matriz_atributos))
     #<class 'numpy.ndarray'>
@@ -151,6 +157,7 @@ print("------------------")
 print("Lista de Outer feats totales:", lista_outer_feats, ", *Tamaño:", len(lista_outer_feats))
 print("------------------")
 print("Lista de Inv feats totales:", lista_environ_feats, ", *Tamaño:", len(lista_environ_feats))
+print("------------------")
 
 crearVector()
 print("------------------")
@@ -159,8 +166,8 @@ print("------------------")
 print("Matriz de Atributos Final:")
 print(matriz_atributos)
 
-#print(matriz_atributos[0])
-#print(matriz_atributos[1])
-#print(matriz_atributos[2])
-#print(matriz_atributos[3])
-#print(matriz_atributos[4])
+print(matriz_atributos[0])
+print(matriz_atributos[1])
+print(matriz_atributos[2])
+print(matriz_atributos[3])
+print(matriz_atributos[4])
