@@ -151,15 +151,18 @@ crearMatriz()
 print("----- Matriz de Atributos Final: -----")
 print(matriz_atributos)
 
+print("----- Matriz Transpuesta: -----")
+matriz_transpuesta = matriz_atributos.T
+print(matriz_transpuesta)
 
-
+# Intento fallido de imprimir la matriz con un for xddd
 #for i in np.shape(matriz_atributos):
 #  print("Fila:", matriz_atributos)
 #print("tamaño de la matriz:", np.shape(matriz_atributos))
 
 # Impresion de las Filas:
-#print("Fila 01:", matriz_atributos[0])
-#print("Fila 02:", matriz_atributos[1])
-#print("Fila 03:", matriz_atributos[2])
+print("Fila 01:", matriz_transpuesta[0])
+print("Fila 02:", matriz_transpuesta[1])
+print("Fila 03:", matriz_transpuesta[2])
 #print("Fila 04:", matriz_atributos[3])
 #print("Fila 05:", matriz_atributos[4])
