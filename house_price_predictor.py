@@ -27,13 +27,14 @@ class HousePricePredictor:
     """Retorna un un diccionario con los siguientes datos:
     
     d = {"costs": costs,
-    "w" : w, 
-    "b" : b,
+    "w1" : w1, 
+    "b1" : b1,
+    "w2" : w2,
+    "b2" : b2
     "learning_rate" : learning_rate,
     "num_iterations": num_iterations}
     
-    costs, es una lista con los costos obtenidos durante el entrenamiento cada 100 interaciones.
-    learning_rate y num_iterations deben ser definidos por el programador mediante un proceso de prueba y error con el fin de obtener la mejor precisión en los datos de prueba.
+    costs, es una lista con los costos obtenidos durante el entrenamiento cada 100 interaciones. learning_rate y num_iterations deben ser definidos por el programador mediante un proceso de prueba y error con el fin de obtener la mejor precisión en los datos de prueba.
     """
     pass
 
