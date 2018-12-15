@@ -162,8 +162,12 @@ print(matriz_transpuesta)
 #print("tamaño de la matriz:", np.shape(matriz_atributos))
 
 # Impresion de las Filas:
-print("Fila 01:", matriz_transpuesta[0])
-print("Fila 02:", matriz_transpuesta[1])
-print("Fila 03:", matriz_transpuesta[2])
+for i in range(0, len(matriz_transpuesta)):
+  print("Fila ", i , ": ", matriz_transpuesta[i])
+
+
+#print("Fila 2070:", matriz_transpuesta[2070])
+#print("Fila 03:", matriz_transpuesta[2])
+
 #print("Fila 04:", matriz_atributos[3])
 #print("Fila 05:", matriz_atributos[4])
