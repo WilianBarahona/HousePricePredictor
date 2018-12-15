@@ -26,6 +26,7 @@ lista_environ_feats = []
 # Vector y matriz que tendran los atributos en forma binaria
 vector_atributos = [] # Variable tipo Lista
 matriz_atributos = np.zeros(1) # Variable tipo numpy.array
+vector_etiquetas = [] # variable tipo lista
 
 """
 Este método se encarga de generar un vector fila en cada iteración del for
@@ -35,7 +36,7 @@ lo tanto se debe de poner de manera explicita que son globales.
 """
 def crearMatriz():
   
-  global vector_atributos, matriz_atributos
+  global vector_atributos, matriz_atributos, vector_etiquetas
   iniciado = False
   
   for house in contenedor:
@@ -66,6 +67,10 @@ def crearMatriz():
     vector_atributos.append(datos['size']) # Agregamos el tamaño al vector
     vector_atributos.append(datos['num_bedrooms']) # Agregamos el num de cuartos
     vector_atributos.append(datos['num_bathrooms']) # Agregamos el num de baños
+
+    #Vector fila de etiquetas Y 
+    vector_etiquetas.append(datos['price'])
+
     
     # Convierte la lista a una tupla para que numpy.array pueda aceptar la tupla
     tupla_temp = tuple(vector_atributos) 
@@ -164,6 +169,8 @@ print(matriz_transpuesta)
 # Impresion de las Filas:
 for i in range(0, len(matriz_transpuesta)):
   print("Fila ", i , ": ", matriz_transpuesta[i])
+
+print(vector_etiquetas)
 
 
 #print("Fila 2070:", matriz_transpuesta[2070])
