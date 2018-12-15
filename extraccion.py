@@ -2,9 +2,10 @@ import numpy as np
 from houses_container import HousesContainer
 
 # Instancia
-contenedorCasas = HousesContainer() 
+contenedorCasas = HousesContainer() # Llama al constructor de HousesContainer
 
-# Se obtiene la información de las casas y las guarda en contenedor
+# Se obtiene la información de las casas llamando al metodo get_homes
+# de HousesContainer y las guarda en una variable contenedor
 contenedor = contenedorCasas.get_homes()
 
 # Listas para guardar los datos (atributos)
