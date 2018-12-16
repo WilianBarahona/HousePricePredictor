@@ -1,13 +1,21 @@
 import numpy as np
 
 A = np.array([[1, 2, 3], [3, 4, 5]])
-print(A)
+print(A, "Tamaño:", A.shape)
 
 print("---------")
 newrow = [6,7,8]
 A = np.vstack([A, newrow])
 
 print(A)
+
+print("---- Concatenar: ----")
+B = np.array([1, 2, 3])
+newrow = [6,7,8]
+print(B, "Tamaño:", B.shape)
+B = np.hstack([B, newrow])
+
+print("Matriz B:", B, "Tamaño:", B.shape)
 
 print("Transpuesta:")
 A.T

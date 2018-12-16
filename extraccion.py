@@ -25,8 +25,8 @@ lista_environ_feats = []
 
 # Vector y matriz que tendran los atributos en forma binaria
 vector_atributos = [] # Variable tipo Lista
+vector_etiquetas = np.zeros(1) # Variable tipo numpy.array
 matriz_atributos = np.zeros(1) # Variable tipo numpy.array
-vector_etiquetas = [] # variable tipo lista
 
 """
 Este método se encarga de generar un vector fila en cada iteración del for
@@ -36,7 +36,7 @@ lo tanto se debe de poner de manera explicita que son globales.
 """
 def crearMatriz():
   
-  global vector_atributos, matriz_atributos, vector_etiquetas
+  global vector_atributos, vector_etiquetas, matriz_atributos
   iniciado = False
   
   for house in contenedor:
@@ -67,20 +67,14 @@ def crearMatriz():
     vector_atributos.append(datos['size']) # Agregamos el tamaño al vector
     vector_atributos.append(datos['num_bedrooms']) # Agregamos el num de cuartos
     vector_atributos.append(datos['num_bathrooms']) # Agregamos el num de baños
-
-    #Vector fila de etiquetas Y 
-    vector_etiquetas.append(datos['price'])
-
-    
-    # Convierte la lista a una tupla para que numpy.array pueda aceptar la tupla
-    tupla_temp = tuple(vector_atributos) 
-    #print("Datos de Tupla:", tupla_temp)
     
     if iniciado == False:
-      matriz_atributos = np.array(tupla_temp) # Crear la matriz con los primeros valores
+      matriz_atributos = np.array(vector_atributos) # Crea la matriz con los primeros valores
+      vector_etiquetas = np.array(datos['price']) # Crea el Vector con los primeros valores
       iniciado = True # Una vez inicializada la matriz, solo queda ir agregando los datoss
     else:
-      matriz_atributos = np.vstack([matriz_atributos, tupla_temp])
+      matriz_atributos = np.vstack([matriz_atributos, vector_atributos])
+      vector_etiquetas = np.hstack([vector_etiquetas, datos['price']]) #Vector fila de etiquetas Y 
     
 """
 Este método se encarga de crear las 3 listas de caracteristicas, 
@@ -161,20 +155,26 @@ print("----- Matriz Transpuesta: -----")
 matriz_transpuesta = matriz_atributos.T
 print(matriz_transpuesta)
 
-# Intento fallido de imprimir la matriz con un for xddd
-#for i in np.shape(matriz_atributos):
-#  print("Fila:", matriz_atributos)
-#print("tamaño de la matriz:", np.shape(matriz_atributos))
+# Impresion de las Filas de toda la matriz:
+#for i in range(0, len(matriz_transpuesta)):
+#  print("Fila", i ,":", matriz_transpuesta[i])
 
-# Impresion de las Filas:
-for i in range(0, len(matriz_transpuesta)):
-  print("Fila ", i , ": ", matriz_transpuesta[i])
-
+print("----- Vector Fila de Precios: -----")
 print(vector_etiquetas)
 
-
-#print("Fila 2070:", matriz_transpuesta[2070])
+# Impresiones Manuales de una fila especifica:
+#print("Fila 02:", matriz_transpuesta[1])
 #print("Fila 03:", matriz_transpuesta[2])
+#print("Fila 04:", matriz_transpuesta[3])
+#print("Fila 05:", matriz_transpuesta[4])
 
-#print("Fila 04:", matriz_atributos[3])
-#print("Fila 05:", matriz_atributos[4])
+print("----- Pruebas del laboratorio 3: -----")
+### START CODE HERE ### (≈ 3 lines of code)
+shape_X = matriz_transpuesta.shape
+shape_Y = vector_etiquetas.shape
+m = matriz_transpuesta.shape[1]  # training set size
+### END CODE HERE ###
+
+print ('The shape of X is: ' + str(shape_X))
+print ('The shape of Y is: ' + str(shape_Y))
+print ('I have m = %d training examples!' % (m))

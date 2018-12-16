@@ -1,7 +1,7 @@
 # Import libraries
 import numpy as np
 
-
+# 4.1 - Defining the neural network structure
 # GRADED FUNCTION: layer_sizes
 def layer_sizes(X, Y):
     """
@@ -21,9 +21,8 @@ def layer_sizes(X, Y):
     ### END CODE HERE ###
     return (n_x, n_h, n_y)
 
-
+# 4.2 - Initialize the model's parameters
 # GRADED FUNCTION: initialize_parameters
-
 def initialize_parameters(n_x, n_h, n_y):
     """
     Argument:
@@ -33,10 +32,10 @@ def initialize_parameters(n_x, n_h, n_y):
     
     Returns:
     params -- python dictionary containing your parameters:
-                    W1 -- weight matrix of shape (n_h, n_x)
-                    b1 -- bias vector of shape (n_h, 1)
-                    W2 -- weight matrix of shape (n_y, n_h)
-                    b2 -- bias vector of shape (n_y, 1)
+        W1 -- weight matrix of shape (n_h, n_x)
+        b1 -- bias vector of shape (n_h, 1)
+        W2 -- weight matrix of shape (n_y, n_h)
+        b2 -- bias vector of shape (n_y, 1)
     """
     
     np.random.seed(2) # we set up a seed so that your output matches ours although the initialization is random.
@@ -53,15 +52,17 @@ def initialize_parameters(n_x, n_h, n_y):
     assert (W2.shape == (n_y, n_h))
     assert (b2.shape == (n_y, 1))
     
-    parameters = {"W1": W1,
-                  "b1": b1,
-                  "W2": W2,
-                  "b2": b2}
+    parameters = {
+      "W1": W1,
+      "b1": b1,
+      "W2": W2,
+      "b2": b2
+      }
     
     return parameters
 
+# 4.3 - The Loop
 # GRADED FUNCTION: forward_propagation
-
 def forward_propagation(X, parameters):
     """
     Argument:
@@ -97,8 +98,8 @@ def forward_propagation(X, parameters):
     
     return A2, cache
 
-# GRADED FUNCTION: compute_cost
 
+# GRADED FUNCTION: compute_cost
 def compute_cost(A2, Y, parameters):
     """
     Computes the cross-entropy cost given in equation (13)
@@ -127,7 +128,6 @@ def compute_cost(A2, Y, parameters):
     return cost
 
 # GRADED FUNCTION: backward_propagation
-
 def backward_propagation(parameters, cache, X, Y):
     """
     Implement the backward propagation using the instructions above.
@@ -174,7 +174,6 @@ def backward_propagation(parameters, cache, X, Y):
     return grads
 
 # GRADED FUNCTION: update_parameters
-
 def update_parameters(parameters, grads, learning_rate = 1.2):
     """
     Updates parameters using the gradient descent update rule given above
@@ -217,9 +216,8 @@ def update_parameters(parameters, grads, learning_rate = 1.2):
     
     return parameters
 
-
+# 4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()
 # GRADED FUNCTION: nn_model
-
 def nn_model(X, Y, n_h, num_iterations = 10000, print_cost=False):
     """
     Arguments:
@@ -271,8 +269,8 @@ def nn_model(X, Y, n_h, num_iterations = 10000, print_cost=False):
 
     return parameters
 
+# 4.5 Predictions
 # GRADED FUNCTION: predict
-
 def predict(parameters, X):
     """
     Using the learned parameters, predicts a class for each example in X
