@@ -150,11 +150,11 @@ print("Numero de baños:", num_bathrooms, "\n") # Vector con los baños de las n
 
 print("----- Lista de Inner feats Totales: -----")
 print(lista_inner_feats, ", *Tamaño:", len(lista_inner_feats))
-print("----- Lista de Outer feats Totales:  -----")
+print("\n", "----- Lista de Outer feats Totales:  -----")
 print(lista_outer_feats, ", *Tamaño:", len(lista_outer_feats))
-print("----- Lista de Inv feats Totales: -----")
+print("\n", "----- Lista de Inv feats Totales: -----")
 print(lista_environ_feats, ", *Tamaño:", len(lista_environ_feats))
-print("----- Lista de Direcciones Totales: -----")
+print("\n", "----- Lista de Direcciones Totales: -----")
 print(lista_direccion, ", *Tamaño:", len(lista_direccion), "\n")
 
 # Llama al metodo para crear la matriz que necesitamos
