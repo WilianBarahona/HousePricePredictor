@@ -22,6 +22,7 @@ environ_feats = []
 lista_inner_feats = []
 lista_outer_feats = []
 lista_environ_feats = []
+lista_direccion = []
 
 # Vector y matriz que tendran los atributos en forma binaria
 vector_atributos = [] # Variable tipo Lista
@@ -50,20 +51,26 @@ def crearMatriz():
       else:
         vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
 
-    for j in lista_outer_feats: # Recorre los inner feats de la lista completa
+    for j in lista_outer_feats: # Recorre los outer feats de la lista completa
       if (j in datos['outer_feats']): # Busca si la casa tiene las caracteristicas
-        vector_atributos.append("1")  # Si la tiene, agrega un 1 en la posición
+        vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
       else:
         vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
 
-    for k in lista_environ_feats: # Recorre los inner feats de la lista completa
+    for k in lista_environ_feats: # Recorre los environ feats de la lista completa
       if (k in datos['environ_feats']): # Busca si la casa tiene las caracteristicas
-        vector_atributos.append("1")  # Si la tiene, agrega un 1 en la posición
+        vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
+      else:
+        vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
+
+    for l in lista_direccion: # Recorre las direcciones de la lista completa
+      if (l in datos['location']): # Busca si existe la direccion en los datos
+        vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
       else:
         vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
     
     #vector_atributos.append(datos['price']) # Esto es lo que intentamos predecir
-    vector_atributos.append(datos['location']) # Agregamos la ubicacion al vector
+    #vector_atributos.append(datos['location']) # La direccion ya se incluyó como 0 y 1
     vector_atributos.append(datos['size']) # Agregamos el tamaño al vector
     vector_atributos.append(datos['num_bedrooms']) # Agregamos el num de cuartos
     vector_atributos.append(datos['num_bathrooms']) # Agregamos el num de baños
@@ -77,14 +84,14 @@ def crearMatriz():
       vector_etiquetas = np.hstack([vector_etiquetas, datos['price']]) #Vector fila de etiquetas Y 
     
 """
-Este método se encarga de crear las 3 listas de caracteristicas, 
-luego de analizar todas las casas.
+Este método se encarga de crear las 3 listas de caracteristicas, y la lista
+de las direcciones, luego de analizar todas las casas.
 global: En los metodos python cree que las variables son locales, por
 lo tanto se debe de poner de manera explicita que son globales.
 """
-def crearListas(inner_feats, outer_feats, environ_feats):
+def crearListas(inner_feats, outer_feats, environ_feats, location):
 
-  global lista_inner_feats, lista_outer_feats, lista_environ_feats
+  global lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion
 
   # Creacion de las listas con las diferentes caracteristicas
   for i in inner_feats: 
@@ -96,8 +103,12 @@ def crearListas(inner_feats, outer_feats, environ_feats):
       lista_outer_feats.append(j)
 
   for k in environ_feats:
-    if(k not in lista_environ_feats):
+    if (k not in lista_environ_feats):
       lista_environ_feats.append(k)
+
+  for l in location:
+    if (l not in lista_direccion):
+      lista_direccion.append(l)
 
 """
 Inicio del programa que obtiene los datos que devulve la funcion get_feats()
@@ -117,7 +128,7 @@ for house in contenedor:
   environ_feats = datos['environ_feats']
 
   # Se llama al método que crea las tres listas con una casa a la vez:
-  crearListas(inner_feats, outer_feats, environ_feats)
+  crearListas(inner_feats, outer_feats, environ_feats, location)
   
   # Prueba de datos:
     #print("Datos:", datos)
@@ -130,12 +141,12 @@ for house in contenedor:
     #print("características Exteriores:", outer_feats, len(outer_feats))
     #print("características Entorno:", environ_feats, len(environ_feats))
 
-print("----- Lista de Datos Generales de todas las casas -----")
-print("Precios:", price) # Vector con los Precios de las n casas
-print("Lugares:", location) # Vector con los Lugares de las n casas 
-print("Tamaños:", size) # Vector con los Tamaños de las n casas
-print("Numero Habitaciones:", num_bedrooms) # Vector con los Habitaciones de las n casas
-print("Numero de baños:", num_bathrooms) # Vector con los baños de las n casas
+print("-- Lista de Datos de todas las casas luego de cargarlos todos --")
+print("Precios:", price, "\n") # Vector con los Precios de las n casas
+print("Lugares:", location, "\n") # Vector con los Lugares de las n casas 
+print("Tamaños:", size, "\n") # Vector con los Tamaños de las n casas
+print("Numero Habitaciones:", num_bedrooms, "\n") # Vector con los Habitaciones de las n casas
+print("Numero de baños:", num_bathrooms, "\n") # Vector con los baños de las n casas
 
 print("----- Lista de Inner feats Totales: -----")
 print(lista_inner_feats, ", *Tamaño:", len(lista_inner_feats))
@@ -143,21 +154,23 @@ print("----- Lista de Outer feats Totales:  -----")
 print(lista_outer_feats, ", *Tamaño:", len(lista_outer_feats))
 print("----- Lista de Inv feats Totales: -----")
 print(lista_environ_feats, ", *Tamaño:", len(lista_environ_feats))
-print("------------------")
+print("----- Lista de Direcciones Totales: -----")
+print(lista_direccion, ", *Tamaño:", len(lista_direccion), "\n")
 
 # Llama al metodo para crear la matriz que necesitamos
 crearMatriz()
 
-print("----- Matriz de Atributos Final: -----")
-print(matriz_atributos)
+#print("----- Matriz de Atributos Final: -----")
+#print(matriz_atributos) # Es muy grande para imprimirse
 
-print("----- Matriz Transpuesta: -----")
+#print("----- Matriz Transpuesta: -----")
 matriz_transpuesta = matriz_atributos.T
-print(matriz_transpuesta)
+#print(matriz_transpuesta) # Es muy grande para imprimirse
 
 # Impresion de las Filas de toda la matriz:
-#for i in range(0, len(matriz_transpuesta)):
-#  print("Fila", i ,":", matriz_transpuesta[i])
+print("----- Matriz de Atributos Final: -----")
+for i in range(0, len(matriz_transpuesta)):
+  print("Fila", i,":", matriz_transpuesta[i])
 
 print("----- Vector Fila de Precios: -----")
 print(vector_etiquetas)
