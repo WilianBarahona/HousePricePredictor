@@ -1,11 +1,12 @@
 import numpy as np
+import math
 import matplotlib.pyplot as plt
-from os import getcwd
-from os.path import join
+from os import getcwd, listdir
+from os.path import join, isfile
 
 grade = 100
-m_train = 122
-m_test = 43
+m_train = len(listdir('./casas/train'))
+m_test = len(listdir('./casas/test'))
 
 def end_and_print_grade():
   print('=' * 79)
@@ -17,7 +18,7 @@ def end_and_print_grade():
 try:
   from house_price_predictor import HousePricePredictor as hpp
 except Exception as e:
-  print('No se pudo importar la clase HousePricePredictor del módulo sentiment')
+  print('No se pudo importar la clase HousePricePredictor del módulo house_price_predictor')
   print(('El error recibido fue:\n{0}').format(e))
   grade = 0
   end_and_print_grade()
@@ -73,23 +74,27 @@ except Exception as e:
   end_and_print_grade()
 
 try:
-  print("Probando parámetros W y b...")
-  def predict(w, b, X):
-    def sigmoid(z): return (1 / (1 + np.exp(-z)))
-    w = w.reshape(X.shape[0], 1)
-    A = sigmoid(w.T.dot(X) + b)
-    return (A > 0.5).astype(int)
+  print("Probando parámetros W1, b1, W2 y b2...")
+  def predict(W1, b1, W2, b2, X):
+    def relu(Z): return np.maximum(0,Z)
+    Z1 = W1.dot(X) + b1
+    A1 = relu(Z1)
+    Z2 = W2.dot(A1) + b2
+    A2 = relu(Z2)
+    return A2
 
-  w, b = results["w"], results["b"]
+  W1, b1, W2, b2 = results["W1"], results["b1"], results["W2"], results["b2"]
   Y_train, Y_test = datasets["Y_train"], datasets["Y_test"]
   X_train, X_test = datasets["X_train"], datasets["X_test"]
-  Y_prediction_train, Y_prediction_test = predict(w,b,X_train), predict(w,b,X_test)
-  print("Precisión en train: {} %".format(
-    100 - np.mean(np.abs(Y_prediction_train - Y_train)) * 100))
-  print("Precisión en test: {} %".format(
-    100 - np.mean(np.abs(Y_prediction_test - Y_test)) * 100))
+  Y_prediction_train = predict(W1, b1, W2, b2, X_train)
+  Y_prediction_test = predict(W1, b1, W2, b2, X_test)
+
+  print("Raíz cuadrada del error cuadrado medio en train: {}".format(
+    math.sqrt(1/(2*m_train) * np.sum(np.power(Y_prediction_train-Y_train,2)))))
+  print("Raíz cuadrada del error cuadrado medio en test: {}".format(
+    math.sqrt(1/(2*m_test) * np.sum(np.power(Y_prediction_test-Y_test,2)))))
 except Exception as e:
-  print('Error inesperado al probar parámetros w y b, es posible que las dimensiones de sus datasets estén incorrectas')
+  print('Error inesperado al probar parámetros del modelo, es posible que las dimensiones de sus datasets estén incorrectas')
   print(('El error recibido fue:\n{0}').format(e))
   grade -= 80
   end_and_print_grade()
