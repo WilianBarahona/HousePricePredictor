@@ -160,7 +160,7 @@ class House:
 
     dic_replace_txt_num_bedrooms = OrderedDict([('<li class="bedrooms">',''), ('</li>',''), ('Habitaciones',''), (' ','')])
 
-    dic_replace_txt_num_bathrooms = OrderedDict([('<li class="bathrooms">',''), ('</li>',''), ('Baños',''), (' ','')])
+    dic_replace_txt_num_bathrooms = OrderedDict([('<li class="bathrooms">',''), ('</li>',''),('Baños',''), ('Baño',''), (' ','')])
 
     dic_replace_txt_feats = OrderedDict([('<li class="tick">',''), ('</li>','')])
 
