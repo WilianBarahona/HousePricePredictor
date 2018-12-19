@@ -154,7 +154,6 @@ def crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats
     else:
       vector_atributos.append(datos['num_bedrooms']) # Agregamos el num de cuartos
 
-
     if(datos['num_bathrooms'] == ''):
         vector_atributos.append(int(0))
     else:
@@ -190,10 +189,11 @@ def crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats
 
   # Aqui ya se retorna la matriz transpuesta y las etiquetas:
   matriz_transpuesta = np.array(matriz_transpuesta)
-  matriz_transpuesta= np.asfarray(matriz_transpuesta,float)
+  matriz_transpuesta = np.asfarray(matriz_transpuesta, float)
 
   vector_etiquetas = np.array(vector_etiquetas)
-  vector_etiquetas= np.asfarray(vector_etiquetas,float)
+  vector_etiquetas = np.asfarray(vector_etiquetas, float)
   
-  return matriz_transpuesta, vector_etiquetas
+  # Retorna la matriz transpuesta
+  return matriz_transpuesta, vector_etiquetas 
 
