@@ -156,7 +156,7 @@ class House:
 
     dic_replace_txt_location = OrderedDict([('<span class="location_info" itemprop="address">',''), ('</span>','')])
 
-    dic_replace_txt_size = OrderedDict([('<li class="dimensions">',''), ('</li>',''), ('m2',''),(' ','')])
+    dic_replace_txt_size = OrderedDict([('<li class="dimensions">',''), ('</li>',''),(',',''), ('m2',''),(' ','')])
 
     dic_replace_txt_num_bedrooms = OrderedDict([('<li class="bedrooms">',''), ('</li>',''), ('Habitaciones',''), (' ','')])
 

@@ -29,8 +29,8 @@ def crearDataSets(path):
   lista_direccion = []
 
   # Vector y matriz que tendran los atributos en forma binaria
-  vector_etiquetas = np.zeros(1) # Variable tipo numpy.array
-  matriz_atributos = np.zeros(1) # Variable tipo numpy.array
+  vector_etiquetas = [] # Variable tipo numpy.array
+  matriz_atributos = [] # Variable tipo numpy.array
 
   # ** 1. Se inicia en el for, cargando los datos de las casas 
   for house in contenedor:
@@ -120,33 +120,45 @@ def crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats
     # Al tener las listas de atributos completas, se crean los vectores con 1's y 0's
     for i in lista_inner_feats: # Recorre los inner feats de la lista completa
       if (i in datos['inner_feats']): # Busca si la casa tiene las caracteristicas
-        vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
+        vector_atributos.append(int(1)) # Si la tiene, agrega un 1 en la posición
       else:
-        vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
+        vector_atributos.append(int(0)) # Si no la tiene, agrega un 0 en la posición
 
     for j in lista_outer_feats: # Recorre los outer feats de la lista completa
       if (j in datos['outer_feats']): # Busca si la casa tiene las caracteristicas
-        vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
+        vector_atributos.append(int(1)) # Si la tiene, agrega un 1 en la posición
       else:
-        vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
+        vector_atributos.append(int(0)) # Si no la tiene, agrega un 0 en la posición
 
     for k in lista_environ_feats: # Recorre los environ feats de la lista completa
       if (k in datos['environ_feats']): # Busca si la casa tiene las caracteristicas
-        vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
+        vector_atributos.append(int(1)) # Si la tiene, agrega un 1 en la posición
       else:
-        vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
+        vector_atributos.append(int(0)) # Si no la tiene, agrega un 0 en la posición
 
     for l in lista_direccion: # Recorre las direcciones de la lista completa
       if (str(l) == str(datos['location'])): # Compara si existe la direccion en los datos
-        vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
+        vector_atributos.append(int(1)) # Si la tiene, agrega un 1 en la posición
       else:
-        vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
+        vector_atributos.append(int(0)) # Si no la tiene, agrega un 0 en la posición
     
     #vector_atributos.append(datos['price']) # Esto es lo que intentamos predecir
     #vector_atributos.append(datos['location']) # La direccion ya se incluyó como 0 y 1
-    vector_atributos.append(datos['size']) # Agregamos el tamaño al vector
-    vector_atributos.append(datos['num_bedrooms']) # Agregamos el num de cuartos
-    vector_atributos.append(datos['num_bathrooms']) # Agregamos el num de baños
+    if(datos['size'] == ''):
+       vector_atributos.append(int(0)) # Agregamos el tamaño al vector
+    else:
+      vector_atributos.append(datos['size']) # Agregamos el tamaño al vector
+    
+    if (datos['num_bedrooms'] == ''):
+      vector_atributos.append(int(0))
+    else:
+      vector_atributos.append(datos['num_bedrooms']) # Agregamos el num de cuartos
+
+
+    if(datos['num_bathrooms'] == ''):
+        vector_atributos.append(int(0))
+    else:
+      vector_atributos.append(datos['num_bathrooms']) # Agregamos el num de baños
     
     if iniciado == False: # Solo va a entrar una vez
       matriz_atributos = np.array(vector_atributos) # Crea la matriz con los primeros valores
@@ -177,5 +189,11 @@ def crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats
   #print(matriz_transpuesta) # Es muy grande para imprimirse
 
   # Aqui ya se retorna la matriz transpuesta y las etiquetas:
+  matriz_transpuesta = np.array(matriz_transpuesta)
+  matriz_transpuesta= np.asfarray(matriz_transpuesta,float)
+
+  vector_etiquetas = np.array(vector_etiquetas)
+  vector_etiquetas= np.asfarray(vector_etiquetas,float)
+  
   return matriz_transpuesta, vector_etiquetas
 
