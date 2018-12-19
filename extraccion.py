@@ -39,7 +39,6 @@ def crearMatriz():
   
   global vector_atributos, vector_etiquetas, matriz_atributos
   iniciado = False
-  
   for house in contenedor:
     datos = house.get_feats() # Consigue los datos de cada casa en cada iteración
     vector_atributos = [] # Reinicia el vector de atributos en cada iteción
@@ -64,7 +63,7 @@ def crearMatriz():
         vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición
 
     for l in lista_direccion: # Recorre las direcciones de la lista completa
-      if (l in datos['location']): # Busca si existe la direccion en los datos
+      if (str(l) == str(datos['location'])): # Compara si existe la direccion en los datos
         vector_atributos.append("1") # Si la tiene, agrega un 1 en la posición
       else:
         vector_atributos.append("0") # Si no la tiene, agrega un 0 en la posición

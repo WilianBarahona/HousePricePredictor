@@ -1,0 +1,7 @@
+'Tegucigalpa, Francisco Morazán', x13
+'Colonia Florencia Sur, Tegucigalpa, Francisco Morazán', x2
+'El Trapiche, Tegucigalpa, Francisco Morazán', x2
+'Residencial El Trapiche, Tegucigalpa, Francisco Morazán', x2
+'Colonia El Hatillo, Tegucigalpa, Francisco Morazán', x2
+'Colonia Loma Linda Sur, Tegucigalpa, Francisco Morazán', x2
+

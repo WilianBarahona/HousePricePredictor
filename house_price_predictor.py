@@ -1,3 +1,5 @@
+from extraer_datos import load_planar_dataset
+
 class HousePricePredictor:
 
   def __init__(self):
@@ -41,11 +43,15 @@ class HousePricePredictor:
   def get_datasets(self):
     """Retorna un diccionario con los datasets preprocesados con los datos y 
     dimensiones que se usaron para el entrenamiento
-    
-    d = { "X_train": X_train,
+    """"
+    X_train, X_test, Y_train, Y_test = load_planar_dataset()
+
+    d = {
+    "X_train": X_train,
     "X_test": X_test,
     "Y_train": Y_train,
     "Y_test": Y_test
     }
-    """
-    pass
+    
+    return dic
+
