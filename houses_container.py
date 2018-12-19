@@ -7,7 +7,7 @@ class HousesContainer:
   """
 
   ## ==== Constructor ==== ##
-  def __init__(self):
+  def __init__(self, path):
     """
     En el constructor se leen todos los archivos con extensión html que están 
     en el directorio '/casas'.
@@ -20,7 +20,7 @@ class HousesContainer:
     #archivo = open("casas/10053.html", "r", encoding='utf-8') # encoding = 'utf-8' para windows
     
     list_file_html = [] # Declaracion de la Lista
-    files = os.listdir('./casas/test')
+    files = os.listdir('./'+path)
     
     for file in files:
       if '.html' in file:
@@ -32,7 +32,7 @@ class HousesContainer:
     self.list_houses = [] # Lista para accederla desde otra clase
     
     for file_html in list_file_html:
-      archivo = open("casas/test/" + file_html, "r", encoding = 'utf-8')
+      archivo = open(path + file_html, "r", encoding = 'utf-8')
       self.list_houses.append(House(archivo.read(), file_html))
       #self.casa = House(archivo.read(), file_html)
     
@@ -49,8 +49,8 @@ class HousesContainer:
     # return self.list_houses[4].get_feats()
     return self.list_houses
 
-contenedor = HousesContainer()
-c = contenedor.get_homes()
+#contenedor = HousesContainer()
+#c = contenedor.get_homes()
 # print(c)
 # c = contenedor.get_homes().get_feats()
 # dic = contenedor.casa.get_feats()

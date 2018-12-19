@@ -4,10 +4,10 @@ from houses_container import HousesContainer
 """
 Inicio del programa que obtiene los datos que devulve la funcion get_feats()
 """
-def crearDataSets():
+def crearDataSets(path):
 
   # Se crea una instancia
-  contenedorCasas = HousesContainer() # Llama al constructor de HousesContainer
+  contenedorCasas = HousesContainer(path) # Llama al constructor de HousesContainer
 
   # Se obtiene la información de las casas llamando al metodo get_homes
   # de HousesContainer y las guarda en una variable contenedor
@@ -71,8 +71,10 @@ def crearDataSets():
   #print("características Entorno:", environ_feats, len(environ_feats))
 
   # ** 3. Llama al metodo para crear la matriz que necesitamos **
-  matriz_atributos, vector_etiquetas = crearMatrices(lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion)
-    
+  matriz_atributos, vector_etiquetas = crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion)
+  
+  vector_etiquetas = vector_etiquetas.reshape(1, vector_etiquetas.shape[0]) # redimensionar Y de 1xm
+
   return matriz_atributos, vector_etiquetas
 
 """
@@ -105,9 +107,9 @@ Este método se encarga de generar un vector fila en cada iteración del for
 para luego ir agregando cada vector a una matriz X
 Tambien crea lo que es el vector Y.
 """
-def crearMatrices(lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion):
+def crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion):
 
-  contenedorCasas = HousesContainer()
+  contenedorCasas = HousesContainer(path)
   contenedor = contenedorCasas.get_homes()
   
   iniciado = False

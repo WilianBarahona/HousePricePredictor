@@ -44,15 +44,18 @@ class HousePricePredictor:
     """Retorna un diccionario con los datasets preprocesados con los datos y 
     dimensiones que se usaron para el entrenamiento
     """
+    #DataSet de entrenamiento
+    X_train, Y_train  = crearDataSets() 
 
-    X_train, Y_train  = crearDataSets() # Como esta implementado hasta ahora
-    #X_train, X_test, Y_train, Y_test = crearDataSets() Como deberia implementarse
+    #DataSet de prueba
+    X_test, Y_test = crearDataSets()
+    
     
     d = {
     "X_train": X_train,
-    #"X_test": X_test,
     "Y_train": Y_train,
-    #"Y_test": Y_test
+    "X_test": X_test,
+    "Y_test": Y_test
     }
     
     return d
