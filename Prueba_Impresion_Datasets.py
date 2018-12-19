@@ -1,11 +1,11 @@
 import numpy as np
 from houses_container import HousesContainer
-from extraccion_comentado import crearDatasets
+from extraccion_comentado import crearDataSets
 
 vector_etiquetas = np.zeros(1) # Variable tipo numpy.array
 matriz_atributos = np.zeros(1) # Variable tipo numpy.array
 
-matriz_atributos, vector_etiquetas = crearDatasets()
+matriz_atributos, vector_etiquetas = crearDataSets()
 
 print("----- Pruebas del laboratorio 3: -----")
 ### START CODE HERE ### (≈ 3 lines of code)

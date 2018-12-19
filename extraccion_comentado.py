@@ -4,7 +4,7 @@ from houses_container import HousesContainer
 """
 Inicio del programa que obtiene los datos que devulve la funcion get_feats()
 """
-def crearDatasets():
+def crearDataSets():
 
   # Se crea una instancia
   contenedorCasas = HousesContainer() # Llama al constructor de HousesContainer
@@ -174,5 +174,6 @@ def crearMatrices(lista_inner_feats, lista_outer_feats, lista_environ_feats, lis
   matriz_transpuesta = matriz_atributos.T
   #print(matriz_transpuesta) # Es muy grande para imprimirse
 
+  # Aqui ya se retorna la matriz transpuesta y las etiquetas:
   return matriz_transpuesta, vector_etiquetas
 

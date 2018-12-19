@@ -1,4 +1,4 @@
-from extraer_datos import load_planar_dataset
+from extraccion_comentado import crearDataSets
 
 class HousePricePredictor:
 
@@ -43,15 +43,17 @@ class HousePricePredictor:
   def get_datasets(self):
     """Retorna un diccionario con los datasets preprocesados con los datos y 
     dimensiones que se usaron para el entrenamiento
-    """"
-    X_train, X_test, Y_train, Y_test = load_planar_dataset()
+    """
 
+    X_train, Y_train  = crearDataSets() # Como esta implementado hasta ahora
+    #X_train, X_test, Y_train, Y_test = crearDataSets() Como deberia implementarse
+    
     d = {
     "X_train": X_train,
-    "X_test": X_test,
+    #"X_test": X_test,
     "Y_train": Y_train,
-    "Y_test": Y_test
+    #"Y_test": Y_test
     }
     
-    return dic
+    return d
 
