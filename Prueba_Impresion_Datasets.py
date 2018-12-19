@@ -39,6 +39,11 @@ print("----- Matriz de Atributos X_train Final: -----")
 for i in range(0, len(X_train)):
   print("Fila", i,":", X_train[i])
 
+print(X_train)
+# print(Y_train)
+# print(X_test)
+# print(Y_test)
+
 # print("--------------------------------------")
 # # Impresion de las Filas de toda la matriz:
 # print("----- Matriz de Atributos X_test Final: -----")

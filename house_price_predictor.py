@@ -44,11 +44,13 @@ class HousePricePredictor:
     """Retorna un diccionario con los datasets preprocesados con los datos y 
     dimensiones que se usaron para el entrenamiento
     """
-    #DataSet de entrenamiento
-    X_train, Y_train  = crearDataSets() 
+    X_train = np.zeros(1) # Variable tipo numpy.array
+    Y_train = np.zeros(1) # Variable tipo numpy.array
+    X_test = np.zeros(1) # Variable tipo numpy.array
+    Y_test = np.zeros(1) # Variable tipo numpy.array
 
-    #DataSet de prueba
-    X_test, Y_test = crearDataSets()
+    X_train, Y_train = crearDataSets('casas/train/')
+    X_test, Y_test = crearDataSets('casas/test/')
     
     
     d = {
