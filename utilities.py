@@ -2,6 +2,28 @@
 import numpy as np
 
 # 4.1 - Defining the neural network structure
+# GRADED FUNCTION: sigmoid
+def sigmoid(x):
+    """
+    Compute the sigmoid of x
+
+    Arguments:
+    x -- A scalar or numpy array of any size
+
+    Return:
+    s -- sigmoid(x)
+    """
+    
+    ### START CODE HERE ### (≈ 1 line of code)
+    s = 1 / (1 + np.exp(-x))
+    ### END CODE HERE ###
+    
+    return s
+
+def relu(Z):
+    r = np.maximum(0,Z)
+    return r
+
 # GRADED FUNCTION: layer_sizes
 def layer_sizes(X, Y):
     """
@@ -86,7 +108,7 @@ def forward_propagation(X, parameters):
     Z1 = W1.dot(X) + b1
     A1 = np.tanh(Z1)
     Z2 = W2.dot(A1) + b2
-    A2 = sigmoid(Z2)
+    A2 = relu(Z2)
     ### END CODE HERE ###
     
     assert(A2.shape == (1, X.shape[1]))
@@ -118,7 +140,7 @@ def compute_cost(A2, Y, parameters):
     # Compute the cross-entropy cost
     ### START CODE HERE ### (≈ 2 lines of code)
     #logprobs = None
-    cost = -1/m * np.sum(Y*np.log(A2) + (1-Y)*np.log(1-A2))
+    cost = (1/(2*m)) * np.sum((A-Y)*(A-Y))
     ### END CODE HERE ###
     
     cost = np.squeeze(cost)     # makes sure cost is the dimension we expect. 
@@ -159,6 +181,7 @@ def backward_propagation(parameters, cache, X, Y):
     # Backward propagation: calculate dW1, db1, dW2, db2. 
     ### START CODE HERE ### (≈ 6 lines of code, corresponding to 6 equations on slide above)
     dZ2 = A2 - Y
+    dZ2[Z2<=0] = 0
     dW2 = 1/m * dZ2.dot(A1.T)
     db2 = 1/m * np.sum(dZ2, axis=1, keepdims=True)
     dZ1 = (W2.T).dot(dZ2) * ( 1 - np.tanh(Z1) * np.tanh(Z1))
