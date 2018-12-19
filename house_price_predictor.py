@@ -23,7 +23,9 @@ class HousePricePredictor:
     Para el resto de atributos, es decir: location, inner, outer y environ feats deberá utilizar la técnica conocida como One Hot Encoding (explicada en clase) para generar vectores binarios para cada atributo y unirlos al final en el vector de atributos definitivo. 
 
     """
-    pass
+    self.X_train, self.Y_train = crearDataSets('casas/train/')
+    self.X_test, self.Y_test = crearDataSets('casas/test/')
+   
 
   def train_model(self):
     """Retorna un un diccionario con los siguientes datos:
@@ -44,20 +46,14 @@ class HousePricePredictor:
     """Retorna un diccionario con los datasets preprocesados con los datos y 
     dimensiones que se usaron para el entrenamiento
     """
-    X_train = np.zeros(1) # Variable tipo numpy.array
-    Y_train = np.zeros(1) # Variable tipo numpy.array
-    X_test = np.zeros(1) # Variable tipo numpy.array
-    Y_test = np.zeros(1) # Variable tipo numpy.array
-
-    X_train, Y_train = crearDataSets('casas/train/')
-    X_test, Y_test = crearDataSets('casas/test/')
+ 
     
     
     d = {
-    "X_train": X_train,
-    "Y_train": Y_train,
-    "X_test": X_test,
-    "Y_test": Y_test
+    "X_train": self.X_train,
+    "Y_train": self.Y_train,
+    "X_test": self.X_test,
+    "Y_test": self.Y_test
     }
     
     return d
