@@ -61,9 +61,9 @@ else:
     end_and_print_grade()
 
   check_and_save_dataset("X_train", datasets["X_train"], (n,m_train))
-  # check_and_save_dataset("X_test", datasets["X_test"], (n,m_test))
-  # check_and_save_dataset("Y_train", datasets["Y_train"], (1,m_train))
-  # check_and_save_dataset("Y_test", datasets["Y_test"], (1,m_test))
+  check_and_save_dataset("X_test", datasets["X_test"], (n,m_test))
+  check_and_save_dataset("Y_train", datasets["Y_train"], (1,m_train))
+  check_and_save_dataset("Y_test", datasets["Y_test"], (1,m_test))
 
 try:
   results = hpp.train_model()
