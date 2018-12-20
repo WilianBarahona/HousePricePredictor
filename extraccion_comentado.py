@@ -4,14 +4,16 @@ from houses_container import HousesContainer
 """
 Inicio del programa que obtiene los datos que devulve la funcion get_feats()
 """
-def crearDataSets(path):
+def crearDataSets(path1, path2):
 
-  # Se crea una instancia
-  contenedorCasas = HousesContainer(path) # Llama al constructor de HousesContainer
+  # Se crea dos instancias para el test y el train
+  contenedorCasas = HousesContainer(path1) # Llama al constructor de HousesContainer
+  contenedorCasas2 = HousesContainer(path2) # Llama al constructor de HousesContainer
 
   # Se obtiene la información de las casas llamando al metodo get_homes
   # de HousesContainer y las guarda en una variable contenedor
   contenedor = contenedorCasas.get_homes()
+  contenedor2 = contenedorCasas.get_homes()
 
   # Listas para guardar los atributos de los datos
   price = []
@@ -29,36 +31,43 @@ def crearDataSets(path):
   lista_direccion = []
 
   # Vector y matriz que tendran los atributos en forma binaria
-  vector_etiquetas = [] # Variable tipo numpy.array
-  matriz_atributos = [] # Variable tipo numpy.array
-
-  # ** 1. Se inicia en el for, cargando los datos de las casas 
-  for house in contenedor:
-    datos = house.get_feats() # Consigue los datos de cada casa en cada iteracion
-
-    # Se desempaqueta el objeto de casas en diferentes listas:
-    price.append(datos['price']) # Se agregan los valores a la lista en cada iteración
-    location.append(datos['location']) # Se agregan los valores a la lista en cada iteración
-    size.append(datos['size']) # Se agregan los valores a la lista en cada iteración
-    num_bedrooms.append(datos['num_bedrooms']) # Se agregan los valores a la lista en cada iteración
-    num_bathrooms.append(datos['num_bathrooms']) # Se agregan los valores a la lista en cada iteración
-    
-    inner_feats = datos['inner_feats'] 
-    outer_feats = datos['outer_feats']
-    environ_feats = datos['environ_feats']
-    
-    # ** 2. Llama al método que crea las tres listas con una casa a la vez **
-    lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion = crearListas (inner_feats, outer_feats, environ_feats, location, 
-    lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion)
+  matriz_atributos_train = [] # Variable tipo numpy.array
+  vector_etiquetas_train = [] # Variable tipo numpy.array
   
-  #print("----- Lista de Inner feats: -----")
-  #print(lista_inner_feats, ", *Tamaño:", len(lista_inner_feats))
-  #print("\n", "----- Lista de Outer feats:  -----")
-  #print(lista_outer_feats, ", *Tamaño:", len(lista_outer_feats))
-  #print("\n", "----- Lista de Inv feats: -----")
-  #print(lista_environ_feats, ", *Tamaño:", len(lista_environ_feats))
-  #print("\n", "----- Lista de Direcciones: -----")
-  #print(lista_direccion, ", *Tamaño:", len(lista_direccion), "\n") 
+  matriz_atributos_test = [] # Variable tipo numpy.array
+  vector_etiquetas_test = [] # Variable tipo numpy.array
+
+  def crearFormato(container):
+    # ** 1. Se inicia en el for, cargando los datos de las casas 
+    for house in container:
+      datos = house.get_feats() # Consigue los datos de cada casa en cada iteracion
+
+      # Se desempaqueta el objeto de casas en diferentes listas:
+      price.append(datos['price']) # Se agregan los valores a la lista en cada iteración
+      location.append(datos['location']) # Se agregan los valores a la lista en cada iteración
+      size.append(datos['size']) # Se agregan los valores a la lista en cada iteración
+      num_bedrooms.append(datos['num_bedrooms']) # Se agregan los valores a la lista en cada iteración
+      num_bathrooms.append(datos['num_bathrooms']) # Se agregan los valores a la lista en cada iteración
+      
+      inner_feats = datos['inner_feats'] 
+      outer_feats = datos['outer_feats']
+      environ_feats = datos['environ_feats']
+      
+      # ** 2. Llama al método que crea las tres listas con una casa a la vez **
+      lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion = crearListas (inner_feats, outer_feats, environ_feats, location, 
+      lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion)
+  
+  crearFormato(contenedor)
+  crearFormato(contenedor2)
+  
+  print("----- Lista de Inner feats: -----")
+  print(lista_inner_feats, ", *Tamaño:", len(lista_inner_feats))
+  print("\n", "----- Lista de Outer feats:  -----")
+  print(lista_outer_feats, ", *Tamaño:", len(lista_outer_feats))
+  print("\n", "----- Lista de Inv feats: -----")
+  print(lista_environ_feats, ", *Tamaño:", len(lista_environ_feats))
+  print("\n", "----- Lista de Direcciones: -----")
+  print(lista_direccion, ", *Tamaño:", len(lista_direccion), "\n") 
 
   #print("-- Lista de Datos de todas las casas luego de cargarlos todos --")
   #print("Precios:", price, "\n") # Vector con los Precios de las n casas
@@ -71,7 +80,7 @@ def crearDataSets(path):
   #print("características Entorno:", environ_feats, len(environ_feats))
 
   # ** 3. Llama al metodo para crear la matriz que necesitamos **
-  matriz_atributos, vector_etiquetas = crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion)
+  matriz_atributos, vector_etiquetas = crearMatrices(path, lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion)
   
   vector_etiquetas = vector_etiquetas.reshape(1, vector_etiquetas.shape[0]) # redimensionar Y de 1xm
 
@@ -107,7 +116,7 @@ Este método se encarga de generar un vector fila en cada iteración del for
 para luego ir agregando cada vector a una matriz X
 Tambien crea lo que es el vector Y.
 """
-def crearMatrices(path,lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion):
+def crearMatrices(path, lista_inner_feats, lista_outer_feats, lista_environ_feats, lista_direccion):
 
   contenedorCasas = HousesContainer(path)
   contenedor = contenedorCasas.get_homes()

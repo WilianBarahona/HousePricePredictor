@@ -7,8 +7,8 @@ from extraccion_comentado import crearDataSets
 # X_test = np.zeros(1,dtype=int) # Variable tipo numpy.array
 # Y_test = np.zeros(1,dtype=int) # Variable tipo numpy.array
 
-X_train, Y_train = crearDataSets('casas/train/')
-X_test, Y_test = crearDataSets('casas/test/')
+X_train, Y_train, X_test, Y_test = crearDataSets('casas/train/', 'casas/test/')
+#X_test, Y_test = crearDataSets('casas/test/')
 
 print("----- Train: -----")
 shape_X = X_train.shape
