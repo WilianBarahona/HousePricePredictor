@@ -140,7 +140,7 @@ def compute_cost(A2, Y, parameters):
     # Compute the cross-entropy cost
     ### START CODE HERE ### (≈ 2 lines of code)
     #logprobs = None
-    cost = (1/(2*m)) * np.sum((A-Y)*(A-Y))
+    cost = (1/(2*m)) * np.sum((A2-Y)*(A2-Y))
     ### END CODE HERE ###
     
     cost = np.squeeze(cost)     # makes sure cost is the dimension we expect. 
@@ -176,6 +176,7 @@ def backward_propagation(parameters, cache, X, Y):
     A1 = cache["A1"]
     A2 = cache["A2"]
     Z1 = cache["Z1"]
+    Z2 = cache["Z2"]
     ### END CODE HERE ###
     
     # Backward propagation: calculate dW1, db1, dW2, db2. 
@@ -241,7 +242,7 @@ def update_parameters(parameters, grads, learning_rate):
 
 # 4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()
 # GRADED FUNCTION: nn_model
-def nn_model(X, Y, n_h, learning_rate, num_iterations, print_cost):
+def nn_model(X, Y,learning_rate, num_iterations, print_cost):
     """
     Arguments:
     X -- dataset of shape (2, number of examples)
@@ -255,10 +256,13 @@ def nn_model(X, Y, n_h, learning_rate, num_iterations, print_cost):
     """
     
     np.random.seed(3)
-   
+    n_x = layer_sizes(X, Y)[0]
+    n_h = layer_sizes(X, Y)[1]
+    n_y = layer_sizes(X, Y)[2]
     costs = []
     # Initialize parameters, then retrieve W1, b1, W2, b2. Inputs: "n_x, n_h, n_y". Outputs = "W1, b1, W2, b2, parameters".
     ### START CODE HERE ### (≈ 5 lines of code)
+    parameters = initialize_parameters(n_x, n_h, n_y)
     W1 = parameters["W1"]
     b1 = parameters["b1"]
     W2 = parameters["W2"]
@@ -290,13 +294,14 @@ def nn_model(X, Y, n_h, learning_rate, num_iterations, print_cost):
             costs.append(cost)
         
     dicOut = {
-        'learning_rate': learning_rate,
-        'num_iterations':num_iterations,
-        'cost': costs,
-        'W1' : parameters["W1"],
-        'b1' : parameters["b1"],
-        'W2' : parameters["W2"],
-        'b2' : parameters["b2"]
+      'learning_rate': learning_rate,
+      'num_iterations':num_iterations,
+      'cost': costs, 
+      'W1' : parameters["W1"],
+      'b1' : parameters["b1"],
+      'W2' : parameters["W2"],
+      'b2' : parameters["b2"]
+        
     }
 
     return dicOut

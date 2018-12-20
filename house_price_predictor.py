@@ -1,6 +1,6 @@
 from extraccion_comentado import crearDataSets
 import numpy as np
-import utilities
+from utilities import *
 
 class HousePricePredictor:
 
@@ -48,14 +48,9 @@ class HousePricePredictor:
     X = self._X_train
     Y = self._Y_train
 
-    n_x, n_h, n_y = layer_sizes(X, Y) # Llama a la función 1.
-    #print("The size of the input layer is: n_x = " + str(n_x))
-    #print("The size of the hidden layer is: n_h = " + str(n_h))
-    #print("The size of the output layer is: n_y = " + str(n_y))
     learning_rate = 0.001 # Hay que ver que tan alto o bajo será el learning rate
     num_iterations = 8000 # Habra que ver cuantas iteraciones es un numero aceptable
-    parameters = initialize_parameters(n_x, n_h, n_y) # Llama a la función 2.
-    dicOut = nn_model(X, Y, n_h, num_iterations , True) #True = imprimir costo , False = no imprimir el costo
+    dicOut = nn_model(X, Y,learning_rate, num_iterations, True) #True = imprimir costo , False = no imprimir el costo
 
     return dicOut
 
