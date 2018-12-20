@@ -1,5 +1,6 @@
 from extraccion_comentado import crearDataSets
 import numpy as np
+import utilities
 
 class HousePricePredictor:
 

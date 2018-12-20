@@ -255,12 +255,10 @@ def nn_model(X, Y, n_h, learning_rate, num_iterations, print_cost):
     """
     
     np.random.seed(3)
-    n_x = layer_sizes(X, Y)[0]
-    n_y = layer_sizes(X, Y)[2]
+   
     costs = []
     # Initialize parameters, then retrieve W1, b1, W2, b2. Inputs: "n_x, n_h, n_y". Outputs = "W1, b1, W2, b2, parameters".
     ### START CODE HERE ### (≈ 5 lines of code)
-    parameters = initialize_parameters(n_x, n_h, n_y)
     W1 = parameters["W1"]
     b1 = parameters["b1"]
     W2 = parameters["W2"]
@@ -291,14 +289,18 @@ def nn_model(X, Y, n_h, learning_rate, num_iterations, print_cost):
             print ("Cost after iteration %i: %f" %(i, cost))
             costs.append(cost)
         
-       dicOut = {
-       'learning_rate': learning_rate,
-       'num_iterations':num_iterations,
-       'cost': costs,
-       'W1' = parameters["W1"],
-       'b1' = parameters["b1"],
-       'W2' = parameters["W2"],
-       'b2' = parameters["b2"]
-       }
+    dicOut = {
+        'learning_rate': learning_rate,
+        'num_iterations':num_iterations,
+        'cost': costs,
+        'W1' : parameters["W1"],
+        'b1' : parameters["b1"],
+        'W2' : parameters["W2"],
+        'b2' : parameters["b2"]
+    }
 
     return dicOut
+
+# 'learning_rate': learning_rate,
+#         'num_iterations':num_iterations,
+#         'cost': costs,
