@@ -37,8 +37,8 @@ print("--------------------------------------")
 print("--------------------------------------")
 # Impresion de las Filas de toda la matriz:
 print("----- Matriz de Atributos X_test Final: -----")
-for i in range(0, len(X_test)):
-  print("Fila", i,":", X_test[i])
+# for i in range(0, len(X_test)):
+#   print("Fila", i,":", X_test[i])
 
 # Impresion incompleta de las matrices
 #print(X_train)

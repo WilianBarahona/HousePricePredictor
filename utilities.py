@@ -197,7 +197,7 @@ def backward_propagation(parameters, cache, X, Y):
     return grads
 
 # GRADED FUNCTION: update_parameters
-def update_parameters(parameters, grads, learning_rate = 1.2):
+def update_parameters(parameters, grads, learning_rate):
     """
     Updates parameters using the gradient descent update rule given above
     
@@ -241,7 +241,7 @@ def update_parameters(parameters, grads, learning_rate = 1.2):
 
 # 4.4 - Integrate parts 4.1, 4.2 and 4.3 in nn_model()
 # GRADED FUNCTION: nn_model
-def nn_model(X, Y, n_h, num_iterations = 10000, print_cost=False):
+def nn_model(X, Y, n_h, learning_rate, num_iterations, print_cost):
     """
     Arguments:
     X -- dataset of shape (2, number of examples)
@@ -257,7 +257,7 @@ def nn_model(X, Y, n_h, num_iterations = 10000, print_cost=False):
     np.random.seed(3)
     n_x = layer_sizes(X, Y)[0]
     n_y = layer_sizes(X, Y)[2]
-    
+    costs = []
     # Initialize parameters, then retrieve W1, b1, W2, b2. Inputs: "n_x, n_h, n_y". Outputs = "W1, b1, W2, b2, parameters".
     ### START CODE HERE ### (≈ 5 lines of code)
     parameters = initialize_parameters(n_x, n_h, n_y)
@@ -282,34 +282,23 @@ def nn_model(X, Y, n_h, num_iterations = 10000, print_cost=False):
         grads = backward_propagation(parameters, cache, X, Y)
  
         # Gradient descent parameter update. Inputs: "parameters, grads". Outputs: "parameters".
-        parameters = update_parameters(parameters, grads)
+        parameters = update_parameters(parameters, grads,learning_rate)
         
         ### END CODE HERE ###
         
         # Print the cost every 1000 iterations
-        if print_cost and i % 1000 == 0:
+        if print_cost and i % 100 == 0:
             print ("Cost after iteration %i: %f" %(i, cost))
+            costs.append(cost)
+        
+       dicOut = {
+       'learning_rate': learning_rate,
+       'num_iterations':num_iterations,
+       'cost': costs,
+       'W1' = parameters["W1"],
+       'b1' = parameters["b1"],
+       'W2' = parameters["W2"],
+       'b2' = parameters["b2"]
+       }
 
-    return parameters
-
-# 4.5 Predictions
-# GRADED FUNCTION: predict
-def predict(parameters, X):
-    """
-    Using the learned parameters, predicts a class for each example in X
-    
-    Arguments:
-    parameters -- python dictionary containing your parameters 
-    X -- input data of size (n_x, m)
-    
-    Returns
-    predictions -- vector of predictions of our model (red: 0 / blue: 1)
-    """
-    
-    # Computes probabilities using forward propagation, and classifies to 0/1 using 0.5 as the threshold.
-    ### START CODE HERE ### (≈ 2 lines of code)
-    A2, cache = forward_propagation(X, parameters)
-    predictions = A2 > 0.5
-    ### END CODE HERE ###
-    
-    return predictions
+    return dicOut
